@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :banking, Banking.Repo,
   username: "postgres",
-  password: "bolinho",
+  password: "postgres",
   hostname: "localhost",
   database: "banking_dev",
   show_sensitive_data_on_connection_error: true,

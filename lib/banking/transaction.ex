@@ -1,25 +1,28 @@
-defmodule Banking.User do
+defmodule Banking.Transaction do
   use Ecto.Schema
   import Ecto.Changeset
 
   #campos que podem ser alterados
   @changeable_fields [
-    :email,
-    :password_hash,
+    :type,
+    :description,
+    :amount
   ]
 
   #campos obrigatórios
   @required_fields [
-    :email,
-    :password_hash
+    :type,
+    :description,
+    :amount
   ]
 
   #Configurando o tipo de chave primária e geração automática
   @primary_key {:id, :binary_id, autogenerate: true}
 
-  schema "users" do
-    field :email, :string
-    field :password_hash, :string
+  schema "transactions" do
+    field :type, :string
+    field :description, :string
+    field :amount, :integer
 
       timestamps()
   end
@@ -28,9 +31,6 @@ defmodule Banking.User do
     %__MODULE__{}
     |> cast(params,@changeable_fields)
     |> validate_required(@required_fields)
-    |> validate_length(:password_hash,min: 8)
-    |> validate_format(:email, ~r/@/)
-    |> unique_constraint(:email)
 
   end
 
