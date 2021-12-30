@@ -13,7 +13,7 @@ config :banking, Banking.Repo,
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
 
-#configuração do comeonin para reduzir a encriptação durante os testes
+# configuração do comeonin para reduzir a encriptação durante os testes
 config :comeonin, :bcrypt_log_rounds, 4
 config :comeonin, :pbkdf2_rounds, 1
 

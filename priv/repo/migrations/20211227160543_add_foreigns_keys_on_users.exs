@@ -6,6 +6,5 @@ defmodule Banking.Repo.Migrations.AddForeignsKeysOnUsers do
       add :profile_id, references(:profiles)
       add :account_id, references(:accounts)
     end
-
   end
 end
