@@ -2,33 +2,29 @@ defmodule Banking.Account do
   use Ecto.Schema
   import Ecto.Changeset
 
-  # campos que podem ser alterados
-  @changeable_fields [
-    :number,
-    :balance
-  ]
-
-  # campos obrigatórios
-  @required_fields [
-    :number,
-    :balance
-  ]
-
   # Configurando o tipo de chave primária e geração automática
   @primary_key {:id, :binary_id, autogenerate: true}
 
   schema "accounts" do
     field :number, :string
-    field :balance, :integer
-    belongs_to :user, Banking.User
+    field :balance, :integer, default: 100
+    belongs_to :user, Banking.User, foreign_key: :user_id
     has_many :transactions, Banking.Transaction
 
     timestamps()
   end
 
-  def changeset(%{} = params) do
-    %__MODULE__{}
-    |> cast(params, @changeable_fields)
-    |> validate_required(@required_fields)
+  def create_changeset(account,params) do
+    account
+    |> changeset(params)
+  end
+
+
+  def changeset(account,params) do
+    account
+    |> cast(params, [:number, :balance,:user_id])
+    |> cast_assoc(:user)
+    |> validate_required([:number, :balance])
+    |> foreign_key_constraint(:user_id)
   end
 end

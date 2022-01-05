@@ -16,6 +16,7 @@ config :banking, Banking.Repo,
 # configuração do comeonin para reduzir a encriptação durante os testes
 config :comeonin, :bcrypt_log_rounds, 4
 config :comeonin, :pbkdf2_rounds, 1
+config :bcrypt_elixir, :log_rounds, 4
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.

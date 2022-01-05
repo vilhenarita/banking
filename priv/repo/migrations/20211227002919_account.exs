@@ -5,6 +5,7 @@ defmodule Banking.Repo.Migrations.Account do
     create table(:accounts) do
       add :number, :string
       add :balance, :integer
+      add :user_id, references(:users)
 
       timestamps()
     end

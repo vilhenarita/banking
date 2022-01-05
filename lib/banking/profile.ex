@@ -4,17 +4,6 @@ defmodule Banking.Profile do
   import Brcpfcnpj.Changeset
 
 
-  # campos que podem ser alterados
-  @changeable_fields [
-    :name,
-    :cpf
-  ]
-
-  # campos obrigatórios
-  @required_fields [
-    :name,
-    :cpf
-  ]
 
   # Configurando o tipo de chave primária e geração automática
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -22,15 +11,23 @@ defmodule Banking.Profile do
   schema "profiles" do
     field :name, :string
     field :cpf, :string
-    belongs_to :user, Banking.User
+    belongs_to :user, Banking.User, foreign_key: :user_id
 
     timestamps()
   end
 
-  def changeset(%{} = params) do
-    %__MODULE__{}
-    |> cast(params, @changeable_fields)
-    |> validate_required(@required_fields)
+  def create_changeset(profile,params) do
+    profile
+    |> changeset(params)
+  end
+
+
+  def changeset(profile,params) do
+    profile
+    |> cast(params, [:name,:cpf,:user_id])
+    |> cast_assoc(:user)
+    |> validate_required([:name,:cpf])
     |> validate_cpf(:cpf)
+    |> foreign_key_constraint(:user_id)
   end
 end
