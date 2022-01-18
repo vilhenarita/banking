@@ -9,5 +9,4 @@ defmodule Banking.TransactionTest do
       assert transaction.valid?
     end
   end
-
 end

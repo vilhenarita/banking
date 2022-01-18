@@ -9,5 +9,4 @@ defmodule Banking.ProfileTest do
       assert profile.valid?
     end
   end
-
 end

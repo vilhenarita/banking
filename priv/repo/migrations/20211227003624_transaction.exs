@@ -6,6 +6,7 @@ defmodule Banking.Repo.Migrations.Transaction do
       add :type, :string
       add :description, :string
       add :amount, :integer
+      add :account_id, references(:accounts)
 
       timestamps()
     end

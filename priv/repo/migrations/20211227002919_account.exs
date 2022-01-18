@@ -3,13 +3,13 @@ defmodule Banking.Repo.Migrations.Account do
 
   def change do
     create table(:accounts) do
-      add :number, :string
       add :balance, :integer
       add :user_id, references(:users)
 
       timestamps()
     end
 
-    create unique_index(:accounts, [:number])
+    create constraint(:accounts, :balance_must_be_nonnegative, check: "balance >= 0")
+
   end
 end

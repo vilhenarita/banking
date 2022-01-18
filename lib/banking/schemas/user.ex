@@ -1,6 +1,11 @@
-defmodule Banking.User do
+defmodule Banking.Schemas.User do
   use Ecto.Schema
+
   import Ecto.Changeset
+
+  alias Banking.Schemas.Profile
+  alias Banking.Schemas.Account
+
 
 
   # Configurando o tipo de chave primária e geração automática
@@ -10,26 +15,21 @@ defmodule Banking.User do
     field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true
-    has_one :profile, Banking.Profile
-    has_one :account, Banking.Account
+    has_one :profile, Profile
+    has_one :account, Account
 
     timestamps()
   end
 
-  def create_changeset(user,params) do
-    user
-    |> changeset(params)
-    |> validate_required(:password)
-  end
 
-
-  def changeset(user,params) do
-    user
+  def create_changeset(params) do
+    %__MODULE__{}
     |> cast(params, [:email,:password])
     |> validate_required([:email])
     |> validate_length(:password_hash, min: 8)
     |> validate_format(:email, ~r/@/)
     |> unique_constraint(:email)
+    |> validate_required(:password)
     |> put_password_hash
   end
 
