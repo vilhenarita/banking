@@ -7,6 +7,7 @@ defmodule Banking.Users do
   alias Banking.Schemas.Profile
   alias Banking.Schemas.Account
   alias Ecto.Multi
+
   def create_user(attrs \\ %{}) do
     Multi.new()
     |> Multi.insert(:user, User.create_changeset(attrs))
